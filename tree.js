@@ -1,0 +1,80 @@
+class TreeNode {
+  constructor(val, children = []) {
+    this.val = val;
+    this.children = children;
+  }
+}
+
+class Tree {
+  constructor(root = null) {
+    this.root = root;
+  }
+
+  sumValues() {
+    if (!this.root) return 0;
+
+    let total = this.root.val;
+
+    function sumHelper(node) {
+      // go through all the children for a Node
+      for (let child of node.children) {
+        // accumulate all values
+        total += child.val;
+        // if it has any children
+        if (child.children.length > 0) {
+          // recurse with the child as the root
+          sumHelper(child);
+        }
+      }
+    }
+
+    sumHelper(this.root);
+    return total;
+  }
+
+  countEvens() {
+    if (!this.root) return 0;
+
+    let count = this.root.val % 2 === 0 ? 1 : 0;
+
+    function countEvensHelper(node) {
+      // go through all the children for a Node
+      for (let child of node.children) {
+        // count the child if the value is even
+        if (child.val % 2 === 0) count++;
+        // if it has any children
+        if (child.children.length > 0) {
+          // recurse with the child as the root
+          countEvensHelper(child);
+        }
+      }
+    }
+
+    countEvensHelper(this.root);
+    return count;
+  }
+
+  numGreater(lowerBound) {
+    if (!this.root) return 0;
+
+    let count = this.root.val > lowerBound ? 1 : 0;
+
+    function countEvensHelper(node) {
+      // go through all the children for a Node
+      for (let child of node.children) {
+        // count the child if the value is greater than lowerBound
+        if (child.val > lowerBound) count++;
+        // if it has any children
+        if (child.children.length > 0) {
+          // recurse with the child as the root
+          countEvensHelper(child);
+        }
+      }
+    }
+
+    countEvensHelper(this.root);
+    return count;
+  }
+}
+
+module.exports = { Tree, TreeNode };
